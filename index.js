@@ -29,7 +29,7 @@ app.get('/api/customers',(req,res)=>{
 app.get('/api/customers/:id', (req, res)=>{
     const customer = customers.find(c=>c.id === parseInt(req.params.id));
     //If there is no valid customer id the display an error with the following
-    if(!customer) res.status(404).send(<h2 style= "font-family: Malgun Gothic; color: darkred;"> Ooo .... Not the part of this member.</h2>);
+    if(!customer) res.status(404).send('<h2 style= "font-family: Malgun Gothic; color: darkred;"> Ooo .... Not the part of this member</h2>');
     res.send(customer);
 });
 // POST method is used to create the data.
@@ -53,7 +53,29 @@ app.post('/api/customer', (req,res)=>{
 
 // Update Request Handler
 //Update the EXisting Customer Information
-app.put()
+app.put('/api/customer/:id', (req,res)=>{
+    const customer = customers.find(c=>c.id === parseInt(req.params.id));
+    if(!customer) res.status(404).send('<h2 style= "font-family: Malgun Gothic; color: darkred;"> Ooo .... Not the part of this member.</h2>');
+    const { error } = validateCustomer(req.body);
+    if (error){
+        res.status(400).send(error.detail[0].message)
+        return;
+    }
+    customer.title = req.body.title;
+    res.send(customer);
+});
+
+// Delete Request Handler
+// Delete Customer detail
+app.delete('/api/customer/:id', (req,res)=>{
+    const customer = customers.find(c=>c.id === parseInt(req.params.id));
+    if(!customer) res.status(404).send('<h2 style= "font-family: Malgun Gothic; color: darkred;"> Ooo .... Not the part of this member.</h2>');
+
+    const index = customers.indexof(customer);
+    customers.splice(index,1);
+
+    res.send(customer);
+});
 
 // validate information.
 
@@ -63,11 +85,6 @@ function validateCustomer(customer){
     };
     return Jio.validate(customer, schema);
 }
-
-
-
-
-
 
 // PORT ENVIRONMENT VARIABLE
 
