@@ -17,3 +17,27 @@ const customers = [
 app.get('/', (req,res)=>{
     res.send('Welcome to my Family!');
 });
+
+//Display the list of customer when the URL consists of api customers
+app.get('/api/customers',(req,res)=>{
+    
+})
+
+// validate information.
+
+function validateCustomer(customer){
+    const schema = {
+        title: joi.string().min(3).required()
+    };
+    return Jio.validate(customer, schema);
+}
+
+
+
+
+
+
+// PORT ENVIRONMENT VARIABLE
+
+const port = process.env.PORT || 8080;
+app.listen(port, ()=> console.log("listening to the port ${PORT}"));
