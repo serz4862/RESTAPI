@@ -9,7 +9,7 @@ const customers = [
     {title : 'Saurav', id:2},
     {title : 'Siya', id:3},
     {title : 'Arya', id:4},
-    {title : 'Rohan', id:5}
+    {title : 'Shrey', id:5}
 ] 
 
 // Http methods GET PUT DELETE POST
@@ -27,7 +27,7 @@ app.get('/api/customers',(req,res)=>{
 
 //Display the Information of specific Customers when the URL consists of api customers.
 app.get('/api/customers/:id', (req, res)=>{
-    const customer = customers.find(c=>c.id === parseInt(req.params.id));
+    const customer = family.find(c=>c.id === parseInt(req.params.id));
     //If there is no valid customer id the display an error with the following
     if(!customer) res.status(404).send('<h2 style= "font-family: Malgun Gothic; color: darkred;"> Ooo .... Not the part of this member</h2>');
     res.send(customer);
@@ -68,7 +68,7 @@ app.put('/api/customer/:id', (req,res)=>{
 // Delete Request Handler
 // Delete Customer detail
 app.delete('/api/customer/:id', (req,res)=>{
-    const customer = customers.find(c=>c.id === parseInt(req.params.id));
+    const customer = family.find(c=>c.id === parseInt(req.params.id));
     if(!customer) res.status(404).send('<h2 style= "font-family: Malgun Gothic; color: darkred;"> Ooo .... Not the part of this member.</h2>');
 
     const index = customers.indexof(customer);
